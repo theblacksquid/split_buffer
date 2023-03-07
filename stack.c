@@ -49,7 +49,9 @@ char stack_pop(stack_t* stack)
 
 void stack_delete(stack_t* stack)
 {
-    for ( node_t* current = stack->nodes; current != NULL ; current = current->prev )
+    for ( node_t* current = stack->nodes;
+	  current != NULL ;
+	  current = current->prev )
     {
 	free(current);
     }
@@ -59,14 +61,42 @@ void stack_delete(stack_t* stack)
 
 void stack_inspect(stack_t stack)
 {
-    printf("<TOP OF STACK>\n");
+    printf("\n<TOP OF STACK>  ");
     
     for ( node_t* current = stack.nodes;
 	  current != NULL;
 	  current = current->prev )
     {
-	printf("%c\n", current->data);
+	printf("%c -> ", current->data);
     }
 
-    printf("<BOTTOM OF STACK>\n");
+    printf("  <BOTTOM OF STACK>\n");
+}
+
+char* stack_to_string(stack_t stack, int reverse)
+{
+    char* result = calloc(stack.num_items + 1, sizeof(char));
+    node_t* current = stack.nodes;
+    
+    if ( reverse > 0 )
+    {
+	for ( int index = 0; index < stack.num_items; index++ )
+	{
+	    result[index] = current->data;
+	    current = current->prev;
+	}
+    }
+
+    else
+    {
+	for ( int index = stack.num_items; index > 0; index-- )
+	{
+	    result[index] = current->data;
+	    current = current->prev;
+	}
+    }
+
+    result[stack.num_items + 1] = '\0';
+
+    return result;
 }

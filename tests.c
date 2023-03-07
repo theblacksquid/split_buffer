@@ -24,6 +24,11 @@ int main (int argc, char** argv)
 	stack_push(&testStack, example[index]);
     }
 
+    if ( strcmp(stack_to_string(testStack, 0), example) )
+	printf("stack_to_string passes\n");
+
+    printf("%s\n", stack_to_string(testStack, 1));
+
     for ( int index = strlen(example) - 1; index > 0; index-- )
     {
 	if ( stack_pop(&testStack) != example[index] )
