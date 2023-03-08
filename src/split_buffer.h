@@ -12,7 +12,7 @@ typedef struct split_buffer_t
 }
 split_buffer_t;
 
-split_buffer_t split_buffer_init();
+split_buffer_t split_buffer_new();
 void split_buffer_delete(split_buffer_t* buffer);
 
 void split_buffer_insert_before_cursor(split_buffer_t* buffer, char data);

@@ -49,11 +49,14 @@ char stack_pop(stack_t* stack)
 
 void stack_delete(stack_t* stack)
 {
-    for ( node_t* current = stack->nodes;
-	  current != NULL ;
-	  current = current->prev )
+    node_t* previous = NULL;
+    node_t* current = stack->nodes;
+    
+    for ( ; current != NULL ; )
     {
-	free(current);
+	previous = current;
+	current = current->prev;
+	free(previous);
     }
 
     stack->num_items = 0;
@@ -89,8 +92,9 @@ char* stack_to_string(stack_t stack, int reverse)
 
     else
     {
-	for ( int index = stack.num_items; index > 0; index-- )
+	for ( int index = stack.num_items - 1; index > -1; index-- )
 	{
+	    /* printf("index: %d\n", index); */
 	    result[index] = current->data;
 	    current = current->prev;
 	}

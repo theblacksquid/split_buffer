@@ -14,7 +14,7 @@
 
 (define compile-unit-test
   (lambda (test-file)
-    (format #f "gcc ~a ~a -o ~a && ./~a && rm ~a\n"
+    (format #f "gcc -g ~a ~a -o ~a && ./~a && rm ~a\n"
 	    (string-join library-files " ")
 	    test-file
 	    (basename test-file)
@@ -26,6 +26,7 @@
     (case (string->symbol (list-ref args 1))
       ((all) (format #t "this is a stub for building everything\n"))
       ((tests)
+       (chdir (list-ref args 2))
        (for-each (lambda (test)
 		   (display (compile-unit-test test))
 		   (system (compile-unit-test test)))
