@@ -22,5 +22,6 @@ void stack_push(stack_t* stack, char data);
 char stack_peek(stack_t stack);
 char stack_pop(stack_t* stack);
 char* stack_to_string(stack_t stack, int reverse);
+void stack_swap(stack_t* stack);
 
 #endif

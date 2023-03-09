@@ -37,14 +37,20 @@ char stack_peek(stack_t stack)
 
 char stack_pop(stack_t* stack)
 {
-    char result = stack->nodes->data;
-    node_t* to_delete = stack->nodes;
-    stack->nodes = stack->nodes->prev;
+    if ( stack->num_items > 0 )
+    {
+	char result = stack->nodes->data;
+	node_t* to_delete = stack->nodes;
+	stack->nodes = stack->nodes->prev;
 
-    free(to_delete);
-    stack->num_items--;
+	free(to_delete);
+	stack->num_items--;
 
-    return result;
+	return result;
+    }
+
+    else
+	return '\0';
 }
 
 void stack_delete(stack_t* stack)
@@ -103,4 +109,15 @@ char* stack_to_string(stack_t stack, int reverse)
     result[stack.num_items + 1] = '\0';
 
     return result;
+}
+
+void stack_swap(stack_t* stack)
+{
+    if ( stack->num_items > 1 )
+    {
+	char top = stack_pop(stack);
+	char bottom = stack_pop(stack);
+	stack_push(stack, top);
+	stack_push(stack, bottom);
+    }
 }

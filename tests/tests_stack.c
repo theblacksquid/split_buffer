@@ -50,4 +50,11 @@ int main (int argc, char** argv)
     stack_delete(&testStack);
 
     stack_inspect(testStack);
+
+    char* to_swap = "12";
+    stack_push(&testStack, to_swap[0]);
+    stack_push(&testStack, to_swap[1]);
+
+    stack_swap(&testStack);
+    printf("swapped: %s\n\n", stack_to_string(testStack, 0));
 }
